@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import palette from "../common/palette";
-import Button from "../common/Button";
+import palette from "../../containers/common/palette";
+import Button from "../../containers/common/Button";
 
 const AuthFormBlock = styled.div`
   h3 {

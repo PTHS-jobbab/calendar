@@ -1,7 +1,12 @@
 import React from "react";
+import Upperbar from "../../common/Upperbar";
 
 const CalendarPage = () => {
-  return <div></div>;
+  return (
+    <div>
+      <Upperbar />
+    </div>
+  );
 };
 
 export default CalendarPage;

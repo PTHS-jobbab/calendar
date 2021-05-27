@@ -4,6 +4,8 @@ import CalendarPage from "./CalendarPage";
 import styled from "styled-components";
 import "./HomePage.css";
 import { Link } from "react-router-dom";
+import TemporaryDrawer from "../../common/Sidebar";
+import Upperbar from "../../common/Upperbar";
 
 const Container = styled.div`
   position: absolute;
@@ -24,6 +26,10 @@ const HomePage = () => {
         <CalendarPage />
       ) : (
         <Container>
+          <div>
+            <Upperbar />
+            <TemporaryDrawer />
+          </div>
           <div className="flex-container">
             <Button variant="contained" color="primary" size="large">
               <Link to="/signin">시작하기</Link>
