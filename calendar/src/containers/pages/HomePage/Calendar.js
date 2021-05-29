@@ -1,6 +1,4 @@
 import React from "react";
-import Upperbar from "../../common/Upperbar";
-import TemporaryDrawer from "../../common/Sidebar";
 
 import Paper from "@material-ui/core/Paper";
 import TableCell from "@material-ui/core/TableCell";
@@ -565,7 +563,7 @@ const AppointmentFormContainer = withStyles(containerStyles, {
   name: "AppointmentFormContainer",
 })(AppointmentFormContainerBasic);
 
-class CalendarPage extends React.PureComponent {
+class Calendar extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -585,14 +583,12 @@ class CalendarPage extends React.PureComponent {
 
     this.toggleConfirmationVisible = this.toggleConfirmationVisible.bind(this);
     this.commitDeletedAppointment = this.commitDeletedAppointment.bind(this);
-    this.toggleEditingFormVisibility = this.toggleEditingFormVisibility.bind(
-      this
-    );
+    this.toggleEditingFormVisibility =
+      this.toggleEditingFormVisibility.bind(this);
 
     this.commitChanges = this.commitChanges.bind(this);
-    this.onEditingAppointmentChange = this.onEditingAppointmentChange.bind(
-      this
-    );
+    this.onEditingAppointmentChange =
+      this.onEditingAppointmentChange.bind(this);
     this.onAddedAppointmentChange = this.onAddedAppointmentChange.bind(this);
     this.appointmentForm = connectProps(AppointmentFormContainer, () => {
       const {
@@ -714,9 +710,7 @@ class CalendarPage extends React.PureComponent {
 
     return (
       <Paper>
-        <Upperbar />
-        <TemporaryDrawer />
-        <h1>뭔가 여기에 다른걸 넣어야 할듯 하다 너무 위에 딱붙;;</h1>
+        <h1> </h1>
         <Scheduler data={data} height={660}>
           <EditingState
             onCommitChanges={this.commitChanges}
@@ -792,4 +786,4 @@ class CalendarPage extends React.PureComponent {
   }
 }
 
-export default withStyles(styles, { name: "CalendarPage" })(CalendarPage);
+export default withStyles(styles, { name: "Calendar" })(Calendar);
