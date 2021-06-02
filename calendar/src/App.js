@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import Title from "./containers/Title/Title";
 import SigninPage from "./containers/pages/SigninPage";
 import SignupPage from "./containers/pages/SignupPage";

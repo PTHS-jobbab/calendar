@@ -1,11 +1,9 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import CalendarPage from "./CalendarPage";
 import styled from "styled-components";
 import "./HomePage.css";
 import { Link } from "react-router-dom";
-import TemporaryDrawer from "../../common/Sidebar";
-import Upperbar from "../../common/Upperbar";
+import CalendarWithDrawer from "./CalendarWithDrawer";
 
 const Container = styled.div`
   position: absolute;
@@ -18,18 +16,15 @@ const Container = styled.div`
 `;
 
 const HomePage = () => {
-  let isLogin = false;
+  let isLogin = true;
 
   return (
     <>
       {isLogin ? (
-        <CalendarPage />
+        <CalendarWithDrawer />
       ) : (
         <Container>
-          <div>
-            <Upperbar />
-            <TemporaryDrawer />
-          </div>
+          <div></div>
           <div className="flex-container">
             <Button variant="contained" color="primary" size="large">
               <Link to="/signin">시작하기</Link>
