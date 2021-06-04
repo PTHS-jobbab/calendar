@@ -10,7 +10,27 @@ export const changeField = createAction(
   })
 );
 
-export const initializeform = createAction(
+export const initializeForm = createAction(
   actionTypes.INITIALIZE_FORM,
   (form) => form
 );
+
+export const signup = createAction(
+  actionTypes.SIGNUP,
+  ({ username, password, nickname, Email }) => ({
+    username,
+    password,
+    nickname,
+    Email,
+  })
+);
+
+export const signin = createAction(
+  actionTypes.SIGNIN,
+  ({ username, password }) => ({
+    username,
+    password,
+  })
+);
+
+export const signout = createAction(actionTypes.SIGNOUT);
