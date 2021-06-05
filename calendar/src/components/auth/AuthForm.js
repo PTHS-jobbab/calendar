@@ -49,7 +49,14 @@ const textMap = {
   signup: "회원가입",
 };
 
-const AuthForm = ({ type, form, onChange, onSubmit }) => {
+const ErrorMessage = styled.div`
+  color: red;
+  text-align: center;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+`;
+
+const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
   const text = textMap[type];
   return (
     <AuthFormBlock>
@@ -71,15 +78,34 @@ const AuthForm = ({ type, form, onChange, onSubmit }) => {
           value={form.password}
         />
         {type === "signup" && (
-          <StyledInput
-            autoComplete="new-password"
-            name="passwordConfirm"
-            placeholder="비밀번호 확인"
-            type="password"
-            onChange={onChange}
-            value={form.passwordConfirm}
-          />
+          <>
+            <StyledInput
+              autoComplete="new-password"
+              name="passwordConfirm"
+              placeholder="비밀번호 확인"
+              type="password"
+              onChange={onChange}
+              value={form.passwordConfirm}
+            />
+            <StyledInput
+              autoComplete="nickname"
+              name="nickname"
+              placeholder="닉네임"
+              type="nickname"
+              onChange={onChange}
+              value={form.nickname}
+            />
+            <StyledInput
+              autoComplete="Email"
+              name="Email"
+              placeholder="E-mail"
+              type="Email"
+              onChange={onChange}
+              value={form.Email}
+            />
+          </>
         )}
+        {error && <ErrorMessage>{error}</ErrorMessage>}
         <ButtonWithMarginTop cyan fullWidth style={{ marginTop: "1rem" }}>
           {text}
         </ButtonWithMarginTop>

@@ -1,12 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { withRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { changeField, initializeform } from "../../store/actions/auth";
+import {
+  changeField,
+  initializeForm,
+  signin,
+} from "../../store/actions/auth";
+import { setUser } from "../../store/actions/user";
 import AuthForm from "./AuthForm";
 
-const SigninForm = () => {
+const SigninForm = ({ history }) => {
+  const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const { form } = useSelector(({ auth }) => ({
+  //state의 auth와 user를 갖고와 설정한다. 각각 reducer에서 설정된다.
+  const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
     form: auth.signin,
+    auth: auth.auth,
+    authError: auth.authError,
+    user: user.user,
   }));
 
   const onChange = (e) => {
@@ -22,11 +33,34 @@ const SigninForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    const { username, password } = form;
+    dispatch(signin({ username, password }));
   };
 
   useEffect(() => {
-    dispatch(initializeform("signin"));
+    dispatch(initializeForm("signin"));
   }, [dispatch]);
+
+  useEffect(() => {
+    if (authError) {
+      console.log("오류 발생");
+      console.log(authError);
+      setError("로그인 실패");
+      return;
+    }
+    if (auth) {
+      console.log("로그인 성공");
+      const { username } = auth;
+      dispatch(setUser(username));
+    }
+  }, [auth, authError, dispatch]);
+
+  useEffect(() => {
+    if (user) {
+      console.log(user);
+      history.push("/");
+    }
+  }, [history, user]);
 
   return (
     <AuthForm
@@ -34,8 +68,9 @@ const SigninForm = () => {
       form={form}
       onChange={onChange}
       onSubmit={onSubmit}
+      error={error}
     />
   );
 };
 
-export default SigninForm;
+export default withRouter(SigninForm);

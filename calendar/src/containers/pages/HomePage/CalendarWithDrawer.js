@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -21,8 +21,10 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Grid from "@material-ui/core/grid";
 import Calendar from "./Calendar";
 
-//임시
-let isloggedin = false;
+import { useSelector, useDispatch } from "react-redux";
+import { signout } from "../../../store/actions/auth";
+import { setUser } from "../../../store/actions/user";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -99,6 +101,11 @@ export default function CalendarWithDrawer() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const { authError, user } = useSelector(({ auth, user }) => ({
+    authError: auth.authError,
+    user: user.user,
+  }));
+  const dispatch = useDispatch();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -107,6 +114,27 @@ export default function CalendarWithDrawer() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    if (authError) {
+      console.log("로그아웃 오류 발생");
+      console.log(authError);
+      return;
+    }
+  }, [authError]);
+
+  const onLogout = () => {
+    dispatch(signout());
+    dispatch(setUser(null));
+    console.log("로그아웃");
+  };
+
+  useEffect(() => {
+    if (user) {
+      console.log("현재" + user + "로그인 중");
+    }
+  }, [user]);
+
   //Appbar랑 Toolbar부분이 상단바 부분임
   return (
     <div className={classes.root}>
@@ -140,12 +168,24 @@ export default function CalendarWithDrawer() {
               </Button>
             </Grid>
             <Grid item>
-              <Button
-                style={WhiteColorStyle}
-                className={classes.topRightButton}
-              >
-                {isloggedin ? "Log out" : "Sign in"}
-              </Button>
+              {user ? (
+                <Button
+                  style={WhiteColorStyle}
+                  className={classes.topRightButton}
+                  onClick={onLogout}
+                >
+                  LOG OUT
+                </Button>
+              ) : (
+                <Link to="./signin">
+                  <Button
+                    style={WhiteColorStyle}
+                    className={classes.topRightButton}
+                  >
+                    SIGN IN
+                  </Button>
+                </Link>
+              )}
             </Grid>
           </Grid>
         </Toolbar>
