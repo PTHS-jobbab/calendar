@@ -1,2 +1,18 @@
 # calendar
-## 여러 사람들이 하나의 캘린더로 일정을 공유하고, 같이 일정을 소화해 나갈 수 있도록 원하는 정보를 원하는 시간에 알려주는 프로그램을 만들어 보려 한다. 
+그룹원들과 일정을 공유할 수 있는 캘린더
+
+# frontend
+## How to run
+```
+yarn start
+```
+## UI
+![UI](./UI/UI.png)
+# Backend
+## How to run
+```
+python manage.py runserver
+```
+
+## API
+https://app.swaggerhub.com/apis/KKH/calendar/
