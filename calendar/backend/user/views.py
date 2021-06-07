@@ -48,11 +48,46 @@ def signout(request):
         if request.user.is_authenticated:
             logout(request)
             return HttpResponse(status=204)
-        else:
-            return HttpResponse(status=401)
+        return HttpResponse(status=401)
     else : 
         return HttpResponseNotAllowed(['GET'])
 
+@csrf_exempt
+def check_password(request):
+    if request.method == 'POST':
+        try:
+            req_data = json.loads(request.body.decode())
+            username = req_data['username']
+            password = req_data['password']
+        except (KeyError, JSONDecodeError) as error:
+            return HttpResponseBadRequest(error)
+        if not request.user.is_authenticated:
+            return HttpResponse(status=401)
+        user = authenticate(username=username, password=password)
+        if user is None:
+            return HttpResponse(status=403)
+        return HttpResponse(status=204)
+    else :
+        return HttpResponseNotAllowed(['POST'])
+
+@csrf_exempt
+def change_userdata(request):
+    if request.method == 'PUT':
+        try:
+            req_data = json.loads(request.body.decode())
+            username = req_data['username']
+            password = req_data['password']
+        except (KeyError, JSONDecodeError) as error:
+            return HttpResponseBadRequest(error)
+        if not request.user.is_authenticated:
+            return HttpResponse(status=401)
+        u = User.objects.get(username=username)
+        u.set_password(password)
+        u.save()
+        login(request,u)
+        return HttpResponse(status=204)
+    else :
+        return HttpResponseNotAllowed['PUT']
 
 @ensure_csrf_cookie
 def token(request):
