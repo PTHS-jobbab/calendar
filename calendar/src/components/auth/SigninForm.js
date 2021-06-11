@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  changeField,
-  initializeForm,
-  signin,
-} from "../../store/actions/auth";
+import { changeField, initializeForm, signin } from "../../store/actions/auth";
 import { setUser } from "../../store/actions/user";
 import AuthForm from "./AuthForm";
 
@@ -57,8 +53,14 @@ const SigninForm = ({ history }) => {
 
   useEffect(() => {
     if (user) {
-      console.log(user);
       history.push("/");
+      try {
+        localStorage.setItem("user", JSON.stringify(user));
+        console.log("로컬에 user등록");
+        console.log(localStorage);
+      } catch (e) {
+        console.log("localStorage is NOT working");
+      }
     }
   }, [history, user]);
 

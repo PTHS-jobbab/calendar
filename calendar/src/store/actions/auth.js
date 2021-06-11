@@ -15,6 +15,8 @@ export const initializeForm = createAction(
   (form) => form
 );
 
+export const initializeAuth = createAction(actionTypes.INITIALIZE_AUTH);
+
 export const signup = createAction(
   actionTypes.SIGNUP,
   ({ username, password, nickname, Email }) => ({
