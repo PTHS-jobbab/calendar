@@ -39,7 +39,8 @@ export default function createRequestSaga(type, request) {
         }
         break;
       default:
-        action === actionTypes.SIGNUP
+        console.log(action);
+        action.type === actionTypes.SIGNUP
           ? yield fetch(request, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -50,6 +51,16 @@ export default function createRequestSaga(type, request) {
                 Email: action.payload.Email,
               }),
             })
+              .then((response) => {
+                if (!response.ok) {
+                  let err = new Error("HTTP status code: " + response.status);
+                  err.response = response;
+                  err.status = response.status;
+                  throw err;
+                }
+                return response;
+              })
+              .catch((e) => (err = e))
           : yield fetch(request, {
               method: "POST",
               headers: { "Content-Type": "application/json" },

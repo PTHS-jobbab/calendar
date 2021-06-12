@@ -41,6 +41,11 @@ const auth = handleActions(
       [form]: initialState[form],
       authError: null,
     }),
+    [actionTypes.INITIALIZE_AUTH]: (state) => ({
+      ...state,
+      auth: null,
+      authError: null,
+    }),
     [actionTypes.SIGNUP_SUCCESS]: (state, { payload: auth }) => ({
       ...state,
       authError: null,
