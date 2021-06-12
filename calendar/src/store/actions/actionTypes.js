@@ -1,5 +1,6 @@
 export const CHANGE_FIELD = "auth/CHANGE_FIELD";
 export const INITIALIZE_FORM = "auth/INITIALIZE_FORM";
+export const INITIALIZE_AUTH = "auth/INITIALIZE_AUTH";
 
 export const START_LOADING = "loading/START_LOADING";
 export const FINISH_LOADING = "loading/FINISH_LOADING";
