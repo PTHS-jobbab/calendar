@@ -1,5 +1,6 @@
 export const CHANGE_FIELD = "auth/CHANGE_FIELD";
 export const INITIALIZE_FORM = "auth/INITIALIZE_FORM";
+export const INITIALIZE_AUTH = "auth/INITIALIZE_AUTH";
 
 export const START_LOADING = "loading/START_LOADING";
 export const FINISH_LOADING = "loading/FINISH_LOADING";
@@ -18,6 +19,10 @@ export const SIGNOUT_FAILURE = "auth/SIGNOUT_FAILURE";
 
 export const SET_USER = "user/SET_USER";
 
-export const CHECK = "user/CHECK";
-export const CHECK_SUCCESS = "user/CHECK_SUCCESS";
-export const CHECK_FAILURE = "user/CHECK_FAILURE";
+export const GETINFO = "user/GETINFO";
+export const GETINFO_SUCCESS = "user/GETINFO_SUCCESS";
+export const GETINFO_FAILURE = "user/GETINFO_FAILURE";
+
+export const PUTINFO = "user/PUTINFO";
+export const PUTINFO_SUCCESS = "user/PUTINFO_SUCCESS";
+export const PUTINFO_FAILURE = "user/PUTINFO_FAILURE";

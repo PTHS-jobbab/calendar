@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeField, initializeForm, signup } from "../../store/actions/auth";
+import {
+  changeField,
+  initializeForm,
+  signup,
+  initializeAuth,
+} from "../../store/actions/auth";
 import { withRouter } from "react-router-dom";
 import AuthForm from "./AuthForm";
 
-const SignupForm = () => {
+const SignupForm = ({ history }) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
@@ -50,6 +55,7 @@ const SignupForm = () => {
   useEffect(() => {
     if (authError) {
       if (authError.status === 409) {
+        console.log("이미 존재하는 계정");
         setError("이미 존재하는 계정명입니다.");
         return;
       }
@@ -62,8 +68,10 @@ const SignupForm = () => {
       setError("회원가입 완료! 잠시후 로그인창으로 돌아갑니다."); //임시로 해둠
       console.log("회원가입 성공");
       console.log(auth);
+      dispatch(initializeAuth()); //바로 auth를 초기화시켜 로그인 방지
+      history.push("/signin");
     }
-  }, [auth, authError, dispatch]);
+  }, [auth, authError, dispatch, history]);
 
   useEffect(() => {
     //이미 로그인되었다 띄우고 돌려보내기

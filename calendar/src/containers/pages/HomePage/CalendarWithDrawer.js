@@ -126,6 +126,13 @@ export default function CalendarWithDrawer() {
   const onLogout = () => {
     dispatch(signout());
     dispatch(setUser(null));
+    try {
+      localStorage.removeItem("user");
+      console.log("로컬에서 user 삭제");
+      console.log(localStorage);
+    } catch (e) {
+      console.log("localStorage is NOT working");
+    }
     console.log("로그아웃");
   };
 
@@ -163,9 +170,11 @@ export default function CalendarWithDrawer() {
               <Button style={WhiteColorStyle} size="large">
                 Logo
               </Button>
-              <Button style={WhiteColorStyle} size="large">
-                My Page
-              </Button>
+              <Link to="./userinfo">
+                <Button style={WhiteColorStyle} size="large">
+                  My Page
+                </Button>
+              </Link>
             </Grid>
             <Grid item>
               {user ? (
@@ -177,14 +186,24 @@ export default function CalendarWithDrawer() {
                   LOG OUT
                 </Button>
               ) : (
-                <Link to="./signin">
-                  <Button
-                    style={WhiteColorStyle}
-                    className={classes.topRightButton}
-                  >
-                    SIGN IN
-                  </Button>
-                </Link>
+                <div>
+                  <Link to="./signin">
+                    <Button
+                      style={WhiteColorStyle}
+                      className={classes.topRightButton}
+                    >
+                      SIGN IN
+                    </Button>
+                  </Link>
+                  <Link to="./signup">
+                    <Button
+                      style={WhiteColorStyle}
+                      className={classes.topRightButton}
+                    >
+                      SIGN UP
+                    </Button>
+                  </Link>
+                </div>
               )}
             </Grid>
           </Grid>

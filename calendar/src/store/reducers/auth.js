@@ -2,7 +2,7 @@ import { handleActions } from "redux-actions";
 import * as actionTypes from "../actions/actionTypes";
 import produce from "immer";
 import { takeLatest } from "redux-saga/effects";
-import createRequestSaga from "../../lib/createRequestSaga";
+import createRequestSaga from "../../components/auth/createRequestSaga";
 import * as authAPI from "../../lib/api/auth";
 
 const signupSaga = createRequestSaga(actionTypes.SIGNUP, authAPI.signup);
@@ -39,6 +39,11 @@ const auth = handleActions(
     [actionTypes.INITIALIZE_FORM]: (state, { payload: form }) => ({
       ...state,
       [form]: initialState[form],
+      authError: null,
+    }),
+    [actionTypes.INITIALIZE_AUTH]: (state) => ({
+      ...state,
+      auth: null,
       authError: null,
     }),
     [actionTypes.SIGNUP_SUCCESS]: (state, { payload: auth }) => ({

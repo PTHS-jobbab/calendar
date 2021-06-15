@@ -2,16 +2,25 @@ import * as actionTypes from "../actions/actionTypes";
 import { handleActions } from "redux-actions";
 import { takeLatest } from "redux-saga/effects";
 import * as authAPI from "../../lib/api/auth";
-import createRequestSaga from "../../lib/createRequestSaga";
+import createRequestSaga from "../../components/user/createRequestSaga";
 
-const checkSaga = createRequestSaga(actionTypes.CHECK, authAPI.check);
+const getInfoSaga = createRequestSaga(actionTypes.GETINFO, authAPI.userdata);
+const putInfoSaga = createRequestSaga(actionTypes.PUTINFO, authAPI.userdata);
 export function* userSaga() {
-  yield takeLatest(actionTypes.CHECK, checkSaga);
+  yield takeLatest(actionTypes.GETINFO, getInfoSaga);
+  yield takeLatest(actionTypes.PUTINFO, putInfoSaga);
 }
 
 const initialState = {
+  userInfo: {
+    nickname: null,
+    Email: null,
+    firstname: null,
+    lastname: null,
+    phonenumber: null,
+  },
   user: null,
-  checkError: null,
+  userError: null,
 };
 
 export default handleActions(
@@ -21,16 +30,22 @@ export default handleActions(
       ...state,
       user,
     }),
-    //check의 용도 : 서버에 현재 로그인된 유저 정보를 갖고오는 것. 나중에 정보수정 등에 쓰일 것. 아직은 안쓰는거로.
-    [actionTypes.CHECK_SUCCESS]: (state, { payload: user }) => ({
+    [actionTypes.GETINFO_SUCCESS]: (state, { payload: userInfo }) => ({
       ...state,
-      user,
-      checkError: null,
+      userinfo: userInfo,
+      userError: null,
     }),
-    [actionTypes.CHECK_FAILURE]: (state, { payload: error }) => ({
+    [actionTypes.GETINFO_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      user: null,
-      checkError: error,
+      userError: error,
+    }),
+    [actionTypes.PUTINFO_SUCCESS]: (state) => ({
+      ...state,
+      userError: null,
+    }),
+    [actionTypes.PUTINFO_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      userError: error,
     }),
   },
   initialState
