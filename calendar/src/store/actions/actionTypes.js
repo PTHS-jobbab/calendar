@@ -17,8 +17,14 @@ export const SIGNOUT = "auth/SIGNOUT";
 export const SIGNOUT_SUCCESS = "auth/SIGNOUT_SUCCESS";
 export const SIGNOUT_FAILURE = "auth/SIGNOUT_FAILURE";
 
+export const CHANGE_INFO = "user/CHANGE_INFO";
+export const INITIALIZE_INFO = "user/INITIALIZE_INFO";
 export const SET_USER = "user/SET_USER";
 
-export const CHECK = "user/CHECK";
-export const CHECK_SUCCESS = "user/CHECK_SUCCESS";
-export const CHECK_FAILURE = "user/CHECK_FAILURE";
+export const GETINFO = "user/GETINFO";
+export const GETINFO_SUCCESS = "user/GETINFO_SUCCESS";
+export const GETINFO_FAILURE = "user/GETINFO_FAILURE";
+
+export const PUTINFO = "user/PUTINFO";
+export const PUTINFO_SUCCESS = "user/PUTINFO_SUCCESS";
+export const PUTINFO_FAILURE = "user/PUTINFO_FAILURE";

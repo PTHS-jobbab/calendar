@@ -16,4 +16,6 @@ export const signup = "/api/user/signup/";
 
 export const signout = "api/user/signout";
 
-export const check = "/api/user/check/";
+export const check_password = "/api/user/check_password/";
+
+export const userdata = "/api/user/userdata/";

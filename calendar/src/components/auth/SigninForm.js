@@ -8,7 +8,7 @@ import AuthForm from "./AuthForm";
 const SigninForm = ({ history }) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  //state의 auth와 user를 갖고와 설정한다. 각각 reducer에서 설정된다.
+  //state의 auth와 user를 갖고와 설정한다. 각각 reducer에서 설정된다. form은 username과 password를 객체화 한 것.
   const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
     form: auth.signin,
     auth: auth.auth,
@@ -47,6 +47,7 @@ const SigninForm = ({ history }) => {
     if (auth) {
       console.log("로그인 성공");
       const { username } = auth;
+      console.log(username);
       dispatch(setUser(username));
     }
   }, [auth, authError, dispatch]);
@@ -57,13 +58,17 @@ const SigninForm = ({ history }) => {
       history.push("/");
     }
     try {
-      localStorage.setItem("user", JSON.stringify(user));
-      console.log("로컬에 user등록");
+      if (!user) {
+        let err = new error("user가 없음");
+        throw err;
+      }
+      localStorage.setItem("user", user);
+      console.log("로컬에" + user + "등록");
       console.log(localStorage);
     } catch (e) {
-      console.log("localStorage is NOT working");
+      console.log("유저가 없음");
     }
-  }, [history, user]);
+  }, [history, user, error]);
 
   return (
     <AuthForm

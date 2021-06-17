@@ -1,6 +1,6 @@
 import { put } from "redux-saga/effects";
-import { startLoading, finishLoading } from "../store/actions/loading";
-import * as actionTypes from "../store/actions/actionTypes";
+import { startLoading, finishLoading } from "../../store/actions/loading";
+import * as actionTypes from "../../store/actions/actionTypes";
 
 export default function createRequestSaga(type, request) {
   const SUCCESS = `${type}_SUCCESS`;

@@ -23,7 +23,7 @@ import Calendar from "./Calendar";
 
 import { useSelector, useDispatch } from "react-redux";
 import { signout } from "../../../store/actions/auth";
-import { setUser } from "../../../store/actions/user";
+import { initializeInfo } from "../../../store/actions/user";
 import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
@@ -125,7 +125,7 @@ export default function CalendarWithDrawer() {
 
   const onLogout = () => {
     dispatch(signout());
-    dispatch(setUser(null));
+    dispatch(initializeInfo());
     try {
       localStorage.removeItem("user");
       console.log("로컬에서 user 삭제");
@@ -170,9 +170,11 @@ export default function CalendarWithDrawer() {
               <Button style={WhiteColorStyle} size="large">
                 Logo
               </Button>
-              <Button style={WhiteColorStyle} size="large">
-                My Page
-              </Button>
+              <Link to="./userinfo">
+                <Button style={WhiteColorStyle} size="large">
+                  My Page
+                </Button>
+              </Link>
             </Grid>
             <Grid item>
               {user ? (
@@ -184,14 +186,24 @@ export default function CalendarWithDrawer() {
                   LOG OUT
                 </Button>
               ) : (
-                <Link to="./signin">
-                  <Button
-                    style={WhiteColorStyle}
-                    className={classes.topRightButton}
-                  >
-                    SIGN IN
-                  </Button>
-                </Link>
+                <div>
+                  <Link to="./signin">
+                    <Button
+                      style={WhiteColorStyle}
+                      className={classes.topRightButton}
+                    >
+                      SIGN IN
+                    </Button>
+                  </Link>
+                  <Link to="./signup">
+                    <Button
+                      style={WhiteColorStyle}
+                      className={classes.topRightButton}
+                    >
+                      SIGN UP
+                    </Button>
+                  </Link>
+                </div>
               )}
             </Grid>
           </Grid>

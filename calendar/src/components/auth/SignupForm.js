@@ -9,7 +9,7 @@ import {
 import { withRouter } from "react-router-dom";
 import AuthForm from "./AuthForm";
 
-const SignupForm = () => {
+const SignupForm = ({ history }) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
@@ -69,8 +69,9 @@ const SignupForm = () => {
       console.log("회원가입 성공");
       console.log(auth);
       dispatch(initializeAuth()); //바로 auth를 초기화시켜 로그인 방지
+      history.push("/signin");
     }
-  }, [auth, authError, dispatch]);
+  }, [auth, authError, dispatch, history]);
 
   useEffect(() => {
     //이미 로그인되었다 띄우고 돌려보내기
