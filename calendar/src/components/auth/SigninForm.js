@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { changeField, initializeForm, signin } from "../../store/actions/auth";
-import { setUser, getInfo } from "../../store/actions/user";
+import { setUser } from "../../store/actions/user";
 import AuthForm from "./AuthForm";
 
 const SigninForm = ({ history }) => {
@@ -47,8 +47,8 @@ const SigninForm = ({ history }) => {
     if (auth) {
       console.log("로그인 성공");
       const { username } = auth;
+      console.log(username);
       dispatch(setUser(username));
-      dispatch(getInfo(username));
     }
   }, [auth, authError, dispatch]);
 
@@ -62,7 +62,7 @@ const SigninForm = ({ history }) => {
         let err = new error("user가 없음");
         throw err;
       }
-      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("user", user);
       console.log("로컬에" + user + "등록");
       console.log(localStorage);
     } catch (e) {

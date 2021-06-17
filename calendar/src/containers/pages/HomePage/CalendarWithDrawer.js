@@ -23,7 +23,7 @@ import Calendar from "./Calendar";
 
 import { useSelector, useDispatch } from "react-redux";
 import { signout } from "../../../store/actions/auth";
-import { setUser } from "../../../store/actions/user";
+import { initializeInfo } from "../../../store/actions/user";
 import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
@@ -125,7 +125,7 @@ export default function CalendarWithDrawer() {
 
   const onLogout = () => {
     dispatch(signout());
-    dispatch(setUser(null));
+    dispatch(initializeInfo());
     try {
       localStorage.removeItem("user");
       console.log("로컬에서 user 삭제");

@@ -17,6 +17,8 @@ export const SIGNOUT = "auth/SIGNOUT";
 export const SIGNOUT_SUCCESS = "auth/SIGNOUT_SUCCESS";
 export const SIGNOUT_FAILURE = "auth/SIGNOUT_FAILURE";
 
+export const CHANGE_INFO = "user/CHANGE_INFO";
+export const INITIALIZE_INFO = "user/INITIALIZE_INFO";
 export const SET_USER = "user/SET_USER";
 
 export const GETINFO = "user/GETINFO";

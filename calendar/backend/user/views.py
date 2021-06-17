@@ -103,7 +103,7 @@ def userdata(request):
         login(request, u)
         return HttpResponse(status=204)
 
-    elif request.method == 'GET':
+    elif request.method == 'POST':
         try:
             req_data = json.loads(request.body.decode())
             username = req_data['username']
@@ -117,10 +117,10 @@ def userdata(request):
         firstname = u.firstname
         lastname = u.lastname
         phonenumber = u.phonenumber
-        return JsonResponse({"username": username, "nickname": nickname, "email": email, "firstname": firstname, "lastname": lastname, "phonenumber": phonenumber},
+        return JsonResponse({"username": username, "nickname": nickname, "Email": email, "firstname": firstname, "lastname": lastname, "phonenumber": phonenumber},
                             status=200, safe=False)
     else:
-        return HttpResponseNotAllowed(['PUT', 'GET'])
+        return HttpResponseNotAllowed(['PUT', 'POST'])
 
 
 @ensure_csrf_cookie

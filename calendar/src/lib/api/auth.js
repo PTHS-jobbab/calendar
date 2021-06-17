@@ -18,4 +18,4 @@ export const signout = "api/user/signout";
 
 export const check_password = "/api/user/check_password/";
 
-export const userdata = "/api/user/userdata";
+export const userdata = "/api/user/userdata/";

@@ -10,15 +10,17 @@ export default function createRequestSaga(type, request) {
     let err = null;
     let res = null;
     yield put(startLoading(type));
-
-    console.log(action);
+    console.log("user의 createRequestSaga 실행");
+    console.log("현재의 action.payload:");
+    console.log(action.payload);
     switch (action.type) {
       case actionTypes.GETINFO:
+        console.log("GETINFO 시작");
         yield fetch(request, {
-          method: "GET",
+          method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            username: action.payload.username,
+            username: action.payload,
           }),
         })
           .then((response) => {
@@ -28,13 +30,15 @@ export default function createRequestSaga(type, request) {
               err.status = response.status;
               throw err;
             }
-            console.log("리스폰스:" + response);
             return response.json();
           })
           .then((response) => (res = response))
           .catch((e) => (err = e));
 
         if (!err) {
+          console.log("userSaga loading SUCCESS!");
+          console.log("리스폰스:");
+          console.log(res);
           yield put({
             type: SUCCESS,
             payload: res,
@@ -50,16 +54,17 @@ export default function createRequestSaga(type, request) {
 
         break;
       case actionTypes.PUTINFO:
+        console.log("PUTINFO 시작");
         yield fetch(request, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             username: action.payload.username,
-            nickname: action.payload.nickname,
             Email: action.payload.Email,
             firstname: action.payload.firstname,
             lastname: action.payload.lastname,
             phonenumber: action.payload.phonenumber,
+            password: action.payload.password,
           }),
         })
           .then((response) => {

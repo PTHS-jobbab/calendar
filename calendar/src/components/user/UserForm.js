@@ -1,14 +1,35 @@
 import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import styled from "styled-components";
 
+const ErrorMessage = styled.div`
+  color: red;
+  text-align: center;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+`;
 const textMap = {
   userinfo: "내 정보",
   usermodify: "내 정보 수정",
 };
 
-export default function UserForm({ type, form }) {
+const useStyles = makeStyles((theme) => ({
+  buttons: {
+    display: "flex",
+    justifyContent: "flex-end",
+  },
+  button: {
+    marginTop: theme.spacing(3),
+    marginLeft: theme.spacing(1),
+  },
+}));
+
+export default function UserForm({ type, form, onSubmit, onChange, error }) {
+  const classes = useStyles();
   const text = textMap[type];
 
   return (
@@ -21,50 +42,57 @@ export default function UserForm({ type, form }) {
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
               <TextField
-                id="standard-read-only-input"
+                id="lastname"
                 label="성"
-                defaultValue={form.lastname}
+                value={form.lastname}
                 InputProps={{
                   readOnly: true,
                 }}
+                InputLabelProps={{ shrink: true }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                id="standard-read-only-input"
+                id="firstname"
                 label="이름"
-                defaultValue={form.firstname}
-                autoComplete="family-name"
+                value={form.firstname}
+                InputProps={{
+                  readOnly: true,
+                }}
+                InputLabelProps={{ shrink: true }}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                id="standard-read-only-input"
+                id="nickname"
                 label="닉네임"
-                defaultValue={form.nickname}
+                value={form.nickname}
                 InputProps={{
                   readOnly: true,
                 }}
+                InputLabelProps={{ shrink: true }}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                id="standard-read-only-input"
+                id="Email"
                 label="이메일"
-                defaultValue={form.Email}
+                value={form.Email}
                 InputProps={{
                   readOnly: true,
                 }}
+                InputLabelProps={{ shrink: true }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                id="standard-read-only-input"
+                id="phonenumber"
                 label="전화번호"
-                defaultValue={form.phonenumber}
+                value={form.phonenumber}
                 InputProps={{
                   readOnly: true,
                 }}
+                InputLabelProps={{ shrink: true }}
               />
             </Grid>
             <Grid item xs={12}></Grid>
@@ -73,89 +101,93 @@ export default function UserForm({ type, form }) {
       )}
       {type === "usermodify" && (
         <React.Fragment>
-          <Typography variant="h6" gutterBottom>
-            Shipping address
-          </Typography>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
               <TextField
                 required
-                id="firstName"
-                name="firstName"
-                label="First name"
-                fullWidth
-                autoComplete="given-name"
+                id="lastname"
+                label="성"
+                value={form.lastname}
+                onChange={onChange}
+                InputLabelProps={{ shrink: true }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
                 required
-                id="lastName"
-                name="lastName"
-                label="Last name"
-                fullWidth
-                autoComplete="family-name"
+                id="firstname"
+                label="이름"
+                onChange={onChange}
+                value={form.firstname}
+                InputLabelProps={{ shrink: true }}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
                 required
-                id="address1"
-                name="address1"
-                label="Address line 1"
-                fullWidth
-                autoComplete="shipping address-line1"
+                id="nickname"
+                label="닉네임"
+                onChange={onChange}
+                value={form.nickname}
+                InputLabelProps={{ shrink: true }}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                id="address2"
-                name="address2"
-                label="Address line 2"
-                fullWidth
-                autoComplete="shipping address-line2"
+                required
+                id="Email"
+                label="이메일"
+                value={form.Email}
+                onChange={onChange}
+                InputLabelProps={{ shrink: true }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
                 required
-                id="city"
-                name="city"
-                label="City"
-                fullWidth
-                autoComplete="shipping address-level2"
+                id="phonenumber"
+                label="전화번호"
+                value={form.phonenumber}
+                onChange={onChange}
+                InputLabelProps={{ shrink: true }}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                id="state"
-                name="state"
-                label="State/Province/Region"
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 required
-                id="zip"
-                name="zip"
-                label="Zip / Postal code"
-                fullWidth
-                autoComplete="shipping postal-code"
+                id="password"
+                type="password"
+                label="비밀번호"
+                value={form.password}
+                onChange={onChange}
+                InputLabelProps={{ shrink: true }}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 required
-                id="country"
-                name="country"
-                label="Country"
-                fullWidth
-                autoComplete="shipping country"
+                id="passwordConfirm"
+                type="password"
+                label="비밀번호 확인"
+                value={form.passwordConfirm}
+                onChange={onChange}
+                InputLabelProps={{ shrink: true }}
               />
             </Grid>
             <Grid item xs={12}></Grid>
           </Grid>
+          {error && <ErrorMessage>{error}</ErrorMessage>}
+          <div className={classes.buttons}>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              onClick={onSubmit}
+            >
+              저장
+            </Button>
+            <Button className={classes.button}>취소</Button>
+          </div>
         </React.Fragment>
       )}
     </React.Fragment>
